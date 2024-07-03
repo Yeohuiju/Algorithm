@@ -4,16 +4,12 @@ using namespace std;
 
 vector<int> solution(vector<int> arr) 
 {
-    vector<int> ans;
-    int before = arr[0];
-    
+    vector<int> ans;    
     ans.push_back(arr[0]);
     
     for(int i = 1; i < arr.size(); i++){
-        if (arr[i] != before){
+        if (arr[i] != arr[i - 1])
             ans.push_back(arr[i]);
-            before = arr[i];
-        }
     }
     
     return ans;
