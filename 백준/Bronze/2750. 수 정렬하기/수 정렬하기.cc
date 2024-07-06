@@ -1,32 +1,44 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+void swap(vector<int> &arr, int idx1, int idx2) {
+	int tmp = arr[idx1];
 
-    int N;
-    cin >> N;
-    vector<int> A(N, 0);
-    for (int i = 0; i < N; i++) {
-        cin >> A[i];
-    }
-  
-    for (int i = 0; i < N - 1; i++) {
-        for (int j = 0; j < N - 1 - i; j++) {
-            if (A[j] > A[j + 1]) {
-                int temp = A[j];
-                A[j] = A[j + 1];
-                A[j + 1] = temp;
-            }
-        }
-    }
+	arr[idx1] = arr[idx2];
+	arr[idx2] = tmp;
+}
 
-    for (int i = 0; i < N; i++) {
-        cout << A[i] << "\n";
-    }
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int N;
+	int end = 1;
+
+	cin >> N;
+	vector<int> nums(N, 0);
+	int last = N;
+
+	for (int i = 0; i < N; i++)
+		cin >> nums[i];
+	
+	while (end) {
+		end = 0;
+		
+		for (int i = 1; i < last; i++) {
+			if (nums[i - 1] > nums[i]) {
+				swap(nums, i - 1, i);
+				end++;
+			}
+		}
+
+		last--;
+	}
+
+	for (int i = 0; i < N; i++)
+		cout << nums[i] << "\n";
+
+	return 0;
 }
