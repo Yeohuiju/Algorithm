@@ -47,9 +47,6 @@ int main() {
 }
 
 void checkBipartite(int s) {
-	if (processed[s] == -1)
-		processed[s] = 0;
-
 	int idx = (processed[s] + 1) % 2;
 
 	for (int i : graph[s]) {
