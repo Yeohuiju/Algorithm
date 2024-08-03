@@ -1,38 +1,42 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 using namespace std;
 
-int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-	int N, M;
-	int a, b;
+    int N, M;
+    cin >> N >> M;
+    vector < vector <int> > A;
+    vector <int>  indegree;
+    A.resize(N + 1);
+    indegree.resize(N + 1);
 
-	cin >> N >> M;
-	vector<vector<int>> students(N + 1);
-	vector<int> degree(N + 1, 0);
-
-	for (int i = 0; i < M; i++) {
-		cin >> a >> b;
-		students[a].push_back(b);
-		degree[b]++;
-	}
-
-	for (int i = 0; i < N; i++) {
-		for (int j = 1; j <= N; j++) {
-			if (degree[j] == 0) {
-				for (int k : students[j])
-					degree[k]--;
-
-				cout << j << ' ';
-				degree[j] = -1;
-
-				break;
-			}
-		}
-	}
-
-	return 0;
+    for (int i = 0; i < M; i++) {
+        int S, E;
+        cin >> S >> E;
+        A[S].push_back(E);
+        indegree[E]++; // �������� �迭 ������ �����ϱ�
+    }
+    queue<int> queue;  // ���� ���� ����
+    for (int i = 1; i <= N; i++) {
+        if (indegree[i] == 0) {
+            queue.push(i);
+        }
+    }
+    while (!queue.empty()) {
+        int now = queue.front();
+        queue.pop();
+        cout << now << " ";
+        for (int next : A[now]) {
+            indegree[next]--;
+            if (indegree[next] == 0) {
+                queue.push(next);
+            }
+        }
+    }
 }
